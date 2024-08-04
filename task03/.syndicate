@@ -7,6 +7,50 @@ lambdas:
 events:
 - operation: deploy
   initiator: yulia
+  bundle_name: task03_240804.171356
+  deploy_name: task03
+  time_start: '2024-08-04T17:14:09Z'
+  time_end: '2024-08-04T17:14:26Z'
+  duration_sec: 17.122
+  operation_status: true
+  rollback_on_error: false
+- operation: build
+  initiator: yulia
+  bundle_name: task03_240804.171356
+  time_start: '2024-08-04T17:13:56Z'
+  time_end: '2024-08-04T17:14:02Z'
+  duration_sec: 6.061
+- operation: upload
+  initiator: yulia
+  bundle_name: task03_240804.171356
+  time_start: '2024-08-04T17:14:00Z'
+  time_end: '2024-08-04T17:14:02Z'
+  duration_sec: 1.586
+- operation: package_meta
+  initiator: yulia
+  bundle_name: task03_240804.171356
+  time_start: '2024-08-04T17:14:00Z'
+  time_end: '2024-08-04T17:14:00Z'
+  duration_sec: 0.002
+- operation: assemble
+  initiator: yulia
+  bundle_name: task03_240804.171356
+  time_start: '2024-08-04T17:13:56Z'
+  time_end: '2024-08-04T17:14:00Z'
+  duration_sec: 3.867
+- operation: assemble_java_mvn
+  initiator: yulia
+  bundle_name: task03_240804.171356
+  time_start: '2024-08-04T17:13:56Z'
+  time_end: '2024-08-04T17:14:00Z'
+  duration_sec: 3.851
+- operation: test
+  initiator: yulia
+  time_start: '2024-08-04T17:13:56Z'
+  time_end: '2024-08-04T17:13:56Z'
+  duration_sec: 0.0
+- operation: deploy
+  initiator: yulia
   bundle_name: task03_240804.165142
   deploy_name: task03
   time_start: '2024-08-04T16:52:01Z'
@@ -51,14 +95,14 @@ events:
   duration_sec: 0.0
 locks:
   modification_lock:
-    last_modification_date: '2024-08-04T16:52:26Z'
+    last_modification_date: '2024-08-04T17:14:26Z'
     locked_till: null
     initiator: yulia
 latest_deploy:
   initiator: yulia
-  bundle_name: task03_240804.165142
+  bundle_name: task03_240804.171356
   deploy_name: task03
-  time_start: '2024-08-04T16:52:01Z'
-  time_end: '2024-08-04T16:52:26Z'
-  duration_sec: 25.058
+  time_start: '2024-08-04T17:14:09Z'
+  time_end: '2024-08-04T17:14:26Z'
+  duration_sec: 17.122
   operation_status: true
