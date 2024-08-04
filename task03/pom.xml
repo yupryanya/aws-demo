@@ -4,14 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.aws</groupId>
-        <artifactId>aws-demo</artifactId>
-        <version>1.0.0</version>
-    </parent>
-
-    <groupId>com.task01</groupId>
-    <artifactId>task01</artifactId>
+    <groupId>task03-group</groupId>
+    <artifactId>task03</artifactId>
     <version>1.0.0</version>
 
     <properties>
@@ -53,7 +47,7 @@
                 <version>${syndicate.java.plugin.version}</version>
                 <configuration>
                     <packages>
-                        <package>com.task01</package>
+                        <package>com.task03</package>
                     </packages>
                     <fileName>${project.name}-${project.version}.jar</fileName>
                 </configuration>

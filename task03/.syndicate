@@ -1,0 +1,64 @@
+name: task03
+build_projects_mapping:
+  java: jsrc/main/java
+lambdas:
+  hello_world:
+    runtime: java
+events:
+- operation: deploy
+  initiator: yulia
+  bundle_name: task03_240804.165142
+  deploy_name: task03
+  time_start: '2024-08-04T16:52:01Z'
+  time_end: '2024-08-04T16:52:26Z'
+  duration_sec: 25.058
+  operation_status: true
+  rollback_on_error: false
+- operation: build
+  initiator: yulia
+  bundle_name: task03_240804.165142
+  time_start: '2024-08-04T16:51:43Z'
+  time_end: '2024-08-04T16:51:50Z'
+  duration_sec: 7.181
+- operation: upload
+  initiator: yulia
+  bundle_name: task03_240804.165142
+  time_start: '2024-08-04T16:51:48Z'
+  time_end: '2024-08-04T16:51:50Z'
+  duration_sec: 2.262
+- operation: package_meta
+  initiator: yulia
+  bundle_name: task03_240804.165142
+  time_start: '2024-08-04T16:51:48Z'
+  time_end: '2024-08-04T16:51:48Z'
+  duration_sec: 0.001
+- operation: assemble
+  initiator: yulia
+  bundle_name: task03_240804.165142
+  time_start: '2024-08-04T16:51:43Z'
+  time_end: '2024-08-04T16:51:48Z'
+  duration_sec: 4.208
+- operation: assemble_java_mvn
+  initiator: yulia
+  bundle_name: task03_240804.165142
+  time_start: '2024-08-04T16:51:43Z'
+  time_end: '2024-08-04T16:51:48Z'
+  duration_sec: 4.204
+- operation: test
+  initiator: yulia
+  time_start: '2024-08-04T16:51:43Z'
+  time_end: '2024-08-04T16:51:43Z'
+  duration_sec: 0.0
+locks:
+  modification_lock:
+    last_modification_date: '2024-08-04T16:52:26Z'
+    locked_till: null
+    initiator: yulia
+latest_deploy:
+  initiator: yulia
+  bundle_name: task03_240804.165142
+  deploy_name: task03
+  time_start: '2024-08-04T16:52:01Z'
+  time_end: '2024-08-04T16:52:26Z'
+  duration_sec: 25.058
+  operation_status: true
