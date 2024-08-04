@@ -10,7 +10,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <groupId>com.task01</groupId>
+    <groupId>task01-group</groupId>
     <artifactId>task01</artifactId>
     <version>1.0.0</version>
 
@@ -45,7 +45,7 @@
             <resource>
                 <directory>${resources.dir}</directory>
             </resource>
-        </resources>        
+        </resources>
         <plugins>
             <plugin>
                 <groupId>net.sf.aws-syndicate</groupId>

@@ -5,6 +5,18 @@ lambdas:
   hello_world:
     runtime: java
 events:
+- operation: clean
+  initiator: yulia
+  time_start: '2024-08-04T17:25:08Z'
+  time_end: '2024-08-04T17:25:08Z'
+  duration_sec: 0.157
+- operation: clean
+  initiator: yulia
+  bundle_name: task03_240804.171356
+  deploy_name: task03
+  time_start: '2024-08-04T17:22:37Z'
+  time_end: '2024-08-04T17:24:45Z'
+  duration_sec: 127.584
 - operation: deploy
   initiator: yulia
   bundle_name: task03_240804.171356
@@ -95,14 +107,7 @@ events:
   duration_sec: 0.0
 locks:
   modification_lock:
-    last_modification_date: '2024-08-04T17:14:26Z'
+    last_modification_date: '2024-08-04T17:25:08Z'
     locked_till: null
     initiator: yulia
-latest_deploy:
-  initiator: yulia
-  bundle_name: task03_240804.171356
-  deploy_name: task03
-  time_start: '2024-08-04T17:14:09Z'
-  time_end: '2024-08-04T17:14:26Z'
-  duration_sec: 17.122
-  operation_status: true
+latest_deploy: {}
