@@ -16,7 +16,7 @@ import java.util.Map;
 @DynamoDbBean
 public class Event {
     private String id;
-    private String principalId;
+    private int principalId;
     private String createdAt;
     private Map<String, String> body;
 

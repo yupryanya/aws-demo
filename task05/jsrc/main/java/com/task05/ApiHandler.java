@@ -84,7 +84,7 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
     @Data
     @NoArgsConstructor
     private class Request {
-        private String principalId;
+        private int principalId;
         private Map<String, String> content;
     }
 }
