@@ -38,7 +38,6 @@ import static com.amazonaws.services.lambda.runtime.events.DynamodbEvent.*;
 })
 public class AuditProducer implements RequestHandler<DynamodbEvent, String> {
     LambdaLogger logger;
-    private static final Gson GSON = new GsonBuilder().create();
     private final Region REGION = Region.of(System.getenv("region"));
 
     @Override
@@ -55,7 +54,6 @@ public class AuditProducer implements RequestHandler<DynamodbEvent, String> {
 
     private void handleRecord(DynamodbStreamRecord record, DynamoDbClient dynamoDbClient, String auditTableName) {
         String eventName = record.getEventName();
-        logger.log("EVENT!!!");
         if (eventName.equals("INSERT") || eventName.equals("MODIFY")) {
             if (record.getDynamodb().getOldImage() != null) {
                 handleModify(record, dynamoDbClient, auditTableName);
@@ -68,7 +66,7 @@ public class AuditProducer implements RequestHandler<DynamodbEvent, String> {
     private void handleInsert(DynamodbStreamRecord record, DynamoDbClient dynamoDbClient, String auditTableName) {
         String key = record.getDynamodb().getNewImage().get("key").getS();
         String value = record.getDynamodb().getNewImage().get("value").getN();
-        String newValue = GSON.toJson(Map.of("key", key, "value", Integer.parseInt(value)));
+        String newValue = String.format("{'key': '%s', 'value': %d}", key, Integer.parseInt(value));
 
         Map<String, AttributeValue> item = createDefaultItem(record);
         item.put("newValue", AttributeValue.builder().s(newValue).build());
