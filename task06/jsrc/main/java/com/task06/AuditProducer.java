@@ -16,6 +16,7 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -88,7 +89,7 @@ public class AuditProducer implements RequestHandler<DynamodbEvent, String> {
 
     private Map<String, AttributeValue> createDefaultItem(DynamodbStreamRecord record) {
         String uuid = UUID.randomUUID().toString();
-        String creationTime = record.getDynamodb().getApproximateCreationDateTime().toInstant().toString();
+        String creationTime = Instant.now().toString();
         String key = record.getDynamodb().getNewImage().get("key").getS();
 
         Map<String, AttributeValue> item = new HashMap<>();
