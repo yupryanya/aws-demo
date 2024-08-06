@@ -4,8 +4,6 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.DynamodbEvent;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.syndicate.deployment.annotations.environment.EnvironmentVariable;
 import com.syndicate.deployment.annotations.environment.EnvironmentVariables;
 import com.syndicate.deployment.annotations.events.DynamoDbTriggerEventSource;
@@ -64,12 +62,16 @@ public class AuditProducer implements RequestHandler<DynamodbEvent, String> {
     }
 
     private void handleInsert(DynamodbStreamRecord record, DynamoDbClient dynamoDbClient, String auditTableName) {
+        Map<String, AttributeValue> item = createDefaultItem(record);
+
         String key = record.getDynamodb().getNewImage().get("key").getS();
         String value = record.getDynamodb().getNewImage().get("value").getN();
-        String newValue = String.format("{'key': '%s', 'value': %d}", key, Integer.parseInt(value));
 
-        Map<String, AttributeValue> item = createDefaultItem(record);
-        item.put("newValue", AttributeValue.builder().s(newValue).build());
+        Map<String, AttributeValue> newValue = new HashMap<>();
+        newValue.put("key", AttributeValue.builder().s(key).build());
+        newValue.put("value", AttributeValue.builder().n(value).build());
+        item.put("newValue", AttributeValue.builder().m(newValue).build());
+
         putItem(dynamoDbClient, auditTableName, item);
     }
 
