@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @DynamoDbBean
 @Setter
-public class Forecast {
+public class ForecastModel {
     private double elevation;
     private double generationtime_ms;
     private Hourly hourly;

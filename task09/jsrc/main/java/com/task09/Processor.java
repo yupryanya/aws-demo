@@ -37,12 +37,12 @@ public class Processor implements RequestHandler<Object, String> {
         OpenMeteoApi openMeteoApi = new OpenMeteoApi();
         String apiData = openMeteoApi.getWeatherForecast();
 
-        DynamoDbTable<WeatherData> weatherTable = getTable(WEATHER_TABLE, WeatherData.class);
+        DynamoDbTable<WeatherDataModel> weatherTable = getTable(WEATHER_TABLE, WeatherDataModel.class);
 
-        Forecast forecast = new GsonBuilder().create().fromJson(apiData, Forecast.class);
+        ForecastModel forecast = new GsonBuilder().create().fromJson(apiData, ForecastModel.class);
 
-        WeatherData weatherData = new WeatherData();
-        weatherData.setForecast(forecast);
+        WeatherDataModel weatherData = new WeatherDataModel();
+        weatherData.setForecastModel(forecast);
 
         weatherTable.putItem(weatherData);
         return "OK";
