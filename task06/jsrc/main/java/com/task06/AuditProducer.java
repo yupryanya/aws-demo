@@ -35,16 +35,14 @@ import static com.amazonaws.services.lambda.runtime.events.DynamodbEvent.*;
         @EnvironmentVariable(key = "table", value = "Audit")
 })
 public class AuditProducer implements RequestHandler<DynamodbEvent, String> {
-    LambdaLogger logger;
     private final Region REGION = Region.of(System.getenv("region"));
+    private final String AUDIT_TABLE = System.getenv("table");
 
     @Override
     public String handleRequest(DynamodbEvent event, Context context) {
-        logger = context.getLogger();
-        String auditTableName = System.getenv("table");
         DynamoDbClient dynamoDbClient = createDynamoDbClient(REGION);
         for (DynamodbStreamRecord record : event.getRecords()) {
-            handleRecord(record, dynamoDbClient, auditTableName);
+            handleRecord(record, dynamoDbClient, AUDIT_TABLE);
         }
         dynamoDbClient.close();
         return "OK";
