@@ -12,10 +12,11 @@
             "dynamodb:PutItem",
             "dynamodb:Batch*",
             "dynamodb:DeleteItem",
+            "dynamodb:*",
+            "lambda:CreateEventSourceMapping",
             "ssm:PutParameter",
             "ssm:GetParameter",
-            "kms:Decrypt",
-            "lambda:InvokeFunction"
+            "kms:Decrypt"
           ],
           "Effect": "Allow",
           "Resource": "*"
