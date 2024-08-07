@@ -16,14 +16,14 @@ import com.syndicate.deployment.model.lambda.url.AuthType;
         roleName = "api_handler-role",
         isPublishVersion = false,
         logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED,
-        layers = {"open-meteo-api-layer"}
+        layers = {"weather"}
 )
 @LambdaUrlConfig(
         authType = AuthType.NONE
 )
 @LambdaLayer(
-        layerName = "open-meteo-api-layer",
-        libraries = {"libs/open-meteo-api-1.0.jar"},
+        layerName = "weather",
+        libraries = {"lib/open-meteo-api-1.0.jar"},
         runtime = DeploymentRuntime.JAVA17,
         artifactExtension = ArtifactExtension.ZIP
 )
