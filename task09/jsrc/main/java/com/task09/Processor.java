@@ -37,7 +37,7 @@ public class Processor implements RequestHandler<Object, String> {
         OpenMeteoApi openMeteoApi = new OpenMeteoApi();
         String apiData = openMeteoApi.getWeatherForecast();
 
-        DynamoDbTable<WeatherData> weatherTable = getTable(WEATHER_TABLE);
+        DynamoDbTable<WeatherData> weatherTable = getTable(WEATHER_TABLE, WeatherData.class);
 
         Forecast forecast = new GsonBuilder().create().fromJson(apiData, Forecast.class);
 
@@ -48,13 +48,13 @@ public class Processor implements RequestHandler<Object, String> {
         return "OK";
     }
 
-    private DynamoDbTable<WeatherData> getTable(String tableName) {
+    private <T> DynamoDbTable<T> getTable(String tableName, Class<T> clazz) {
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(REGION)
                 .build();
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(ddb)
                 .build();
-        return enhancedClient.table(tableName, TableSchema.fromBean(WeatherData.class));
+        return enhancedClient.table(tableName, TableSchema.fromBean(clazz));
     }
 }
