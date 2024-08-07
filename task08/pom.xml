@@ -3,6 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.aws</groupId>
+        <artifactId>aws-demo</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
 
     <groupId>task08-group</groupId>
     <artifactId>task08</artifactId>
@@ -53,7 +59,7 @@
             <artifactId>open-meteo-api</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/open-meteo-api-1.0.jar</systemPath>
+            <systemPath>${basedir}/lib/open-meteo-api-1.0.jar</systemPath>
         </dependency>
     </dependencies>
 
