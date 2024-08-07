@@ -14,7 +14,7 @@ import java.util.Map;
 @Builder
 @AllArgsConstructor
 @DynamoDbBean
-public class Event {
+public class EventModel {
     private String id;
     private int principalId;
     private String createdAt;

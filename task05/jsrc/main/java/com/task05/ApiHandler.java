@@ -44,12 +44,12 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent requestEvent, Context context) {
 
-        DynamoDbTable<Event> eventTable = getTable(TABLE_NAME, Event.class);
+        DynamoDbTable<EventModel> eventTable = getTable(TABLE_NAME, EventModel.class);
 
         String requestBody = requestEvent.getBody();
         Request request = GSON.fromJson(requestBody, Request.class);
 
-        Event event = Event.builder()
+        EventModel event = EventModel.builder()
                 .id(UUID.randomUUID().toString())
                 .principalId(request.getPrincipalId())
                 .createdAt(Instant.now().toString())
