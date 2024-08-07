@@ -12,11 +12,11 @@ import java.util.UUID;
 @ToString
 @DynamoDbBean
 @AllArgsConstructor
-public class WeatherDataModel {
+public class WeatherData {
     private String id;
-    private ForecastModel forecastModel;
+    private Forecast forecast;
 
-    public WeatherDataModel() {
+    public WeatherData() {
         this.id = UUID.randomUUID().toString();
     }
 
