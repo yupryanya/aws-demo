@@ -21,11 +21,9 @@ import java.util.Map;
         isPublishVersion = false,
         logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
-
 @LambdaUrlConfig(
         authType = AuthType.NONE
 )
-
 public class HelloWorld implements RequestHandler<APIGatewayV2HTTPEvent, APIGatewayV2HTTPResponse> {
     private static final int SC_OK = 200;
     private static final int SC_BAD_REQUEST = 400;
