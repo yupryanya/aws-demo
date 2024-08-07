@@ -24,7 +24,6 @@ import com.syndicate.deployment.model.lambda.url.AuthType;
 @LambdaLayer(
         layerName = "weather",
         libraries = {"lib/open-meteo-api-1.0.jar"},
-        runtime = DeploymentRuntime.JAVA11,
         artifactExtension = ArtifactExtension.ZIP
 )
 public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
