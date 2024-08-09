@@ -13,15 +13,15 @@ import java.util.UUID;
 @Setter
 @ToString
 public class ReservationsModel {
-    String reservationId;
+    String id;
     Reservation reservation;
 
     public ReservationsModel() {
-        this.reservationId = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID().toString();
     }
 
     @DynamoDbPartitionKey
-    public String getReservationId() {
-        return reservationId;
+    public String getId() {
+        return id;
     }
 }

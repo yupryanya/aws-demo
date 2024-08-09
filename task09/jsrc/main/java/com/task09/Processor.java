@@ -33,6 +33,7 @@ public class Processor implements RequestHandler<Object, String> {
     private static final Region REGION = Region.of(System.getenv("region"));
     private static final String WEATHER_TABLE = System.getenv("table");
 
+    @Override
     public String handleRequest(Object request, Context context) {
         OpenMeteoApi openMeteoApi = new OpenMeteoApi();
         String apiData = openMeteoApi.getWeatherForecast();

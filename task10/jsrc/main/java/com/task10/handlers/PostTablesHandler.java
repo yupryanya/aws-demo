@@ -10,17 +10,17 @@ import com.task10.models.TablesModel;
 import java.util.Map;
 
 public class PostTablesHandler extends AbstractHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
-    private final TablesDbService dynamoDbService;
+    private final TablesDbService tablesDbService;
 
     public PostTablesHandler() {
-        this.dynamoDbService = new TablesDbService();
+        this.tablesDbService = new TablesDbService();
     }
 
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
         try {
             TablesModel newTable = gson.fromJson(request.getBody(), TablesModel.class);
-            dynamoDbService.addItem(newTable);
+            tablesDbService.addItem(newTable);
             return createOkResponse(gson.toJson(Map.of("id", newTable.getId())));
         } catch (Exception e) {
             return createErrorResponse(e.getMessage());

@@ -8,17 +8,17 @@ import com.task10.service.TablesDbService;
 import com.task10.models.TablesModel;
 
 public class GetTableByIdHandler extends AbstractHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
-    private final TablesDbService dynamoDbService;
+    private final TablesDbService tablesDbService;
 
     public GetTableByIdHandler() {
-        this.dynamoDbService = new TablesDbService();
+        this.tablesDbService = new TablesDbService();
     }
 
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
         try {
             String tableId = request.getPathParameters().get("tableId");
-            TablesModel tableItem = dynamoDbService.getItemById(Integer.parseInt(tableId));
+            TablesModel tableItem = tablesDbService.getItemById(Integer.parseInt(tableId));
             if (tableItem != null) {
                 return createOkResponse(gson.toJson(tableItem));
             } else {

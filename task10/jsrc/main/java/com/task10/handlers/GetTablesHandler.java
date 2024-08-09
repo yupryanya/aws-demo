@@ -11,16 +11,16 @@ import java.util.List;
 import java.util.Map;
 
 public class GetTablesHandler extends AbstractHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
-    private final TablesDbService dynamoDbService;
+    private final TablesDbService tablesDbService;
 
     public GetTablesHandler() {
-        this.dynamoDbService = new TablesDbService();
+        this.tablesDbService = new TablesDbService();
     }
 
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
         try {
-            List<TablesModel> items = dynamoDbService.scanTable();
+            List<TablesModel> items = tablesDbService.scanTable();
             return createOkResponse(gson.toJson(Map.of("tables", items)));
         } catch (Exception e) {
             return createErrorResponse(e.getMessage());

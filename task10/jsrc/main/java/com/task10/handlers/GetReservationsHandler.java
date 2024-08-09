@@ -13,19 +13,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GetReservationsHandler extends AbstractHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
-    private final ReservationsDbService dynamoDbService;
+    private final ReservationsDbService reservationDbService;
 
     public GetReservationsHandler() {
-        this.dynamoDbService = new ReservationsDbService();
+        this.reservationDbService = new ReservationsDbService();
     }
 
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
         try {
-            List<ReservationsModel> items = dynamoDbService.scanTable();
-            List<Reservation> reservations = items.stream()
-                    .map(ReservationsModel::getReservation)
-                    .collect(Collectors.toList());
+            List<Reservation> reservations = reservationDbService.scanTable();
             return createOkResponse(gson.toJson(Map.of("reservations", reservations)));
         } catch (Exception e) {
             return createErrorResponse(e.getMessage());
