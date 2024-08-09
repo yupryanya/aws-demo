@@ -28,7 +28,7 @@ public class PostReservationsHandler extends AbstractHandler implements RequestH
             Reservation reservationData = gson.fromJson(request.getBody(), Reservation.class);
             TablesModel tableItem = tablesDbService.getItemById(reservationData.getTableNumber());
             if (tableItem == null) {
-                return createErrorResponse("Table not found");
+            //    return createErrorResponse("Table not found");
             }
             if (reservationDbService.noTableOverlapping(reservationData)) {
                 ReservationsModel newReservation = new ReservationsModel();
