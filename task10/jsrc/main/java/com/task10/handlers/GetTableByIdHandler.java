@@ -18,7 +18,7 @@ public class GetTableByIdHandler extends AbstractHandler implements RequestHandl
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
         try {
             String tableId = request.getPathParameters().get("tableId");
-            TablesModel tableItem = tablesDbService.getItemById(Integer.parseInt(tableId));
+            TablesModel tableItem = tablesDbService.getTableById(Integer.parseInt(tableId));
             if (tableItem != null) {
                 return createOkResponse(gson.toJson(tableItem));
             } else {

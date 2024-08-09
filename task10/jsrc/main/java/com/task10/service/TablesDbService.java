@@ -1,7 +1,5 @@
 package com.task10.service;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.task10.models.TablesModel;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
@@ -18,8 +16,6 @@ import java.util.stream.Collectors;
 public class TablesDbService {
     protected static final Region REGION = Region.of(System.getenv("region"));
     protected static final String TABLES_TABLE_NAME = System.getenv("tables");
-
-    protected static final Gson GSON = new GsonBuilder().create();
 
     private final DynamoDbTable<TablesModel> tablesTable;
 
@@ -38,22 +34,20 @@ public class TablesDbService {
         return tablesTable.scan(scanRequest).items().stream().collect(Collectors.toList());
     }
 
-    public String addTable(TablesModel item) {
+    public void addTable(TablesModel item) {
         tablesTable.putItem(item);
-        return GSON.toJson(item);
     }
 
     public TablesModel getTableByNumber(int number) {
-        Key key = Key.builder()
-                .partitionValue(number)
-                .build();
-        GetItemEnhancedRequest request = GetItemEnhancedRequest.builder()
-                .key(key)
-                .build();
-        return tablesTable.getItem(request);
+        ScanEnhancedRequest scanRequest = ScanEnhancedRequest.builder().build();
+        List<TablesModel> items = tablesTable.scan(scanRequest).items().stream().collect(Collectors.toList());
+        return items.stream()
+                .filter(item -> item.getNumber() == number)
+                .findFirst()
+                .orElse(null);
     }
 
-    public TablesModel getItemById(int id) {
+    public TablesModel getTableById(int id) {
         Key key = Key.builder()
                 .partitionValue(id)
                 .build();
