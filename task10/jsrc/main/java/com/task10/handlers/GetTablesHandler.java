@@ -20,7 +20,7 @@ public class GetTablesHandler extends AbstractHandler implements RequestHandler<
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
         try {
-            List<TablesModel> items = tablesDbService.scanTable();
+            List<TablesModel> items = tablesDbService.getAllTables();
             return createOkResponse(gson.toJson(Map.of("tables", items)));
         } catch (Exception e) {
             return createErrorResponse(e.getMessage());

@@ -33,14 +33,24 @@ public class TablesDbService {
         this.tablesTable = enhancedClient.table(TABLES_TABLE_NAME, TableSchema.fromBean(TablesModel.class));
     }
 
-    public List<TablesModel> scanTable() {
+    public List<TablesModel> getAllTables() {
         ScanEnhancedRequest scanRequest = ScanEnhancedRequest.builder().build();
         return tablesTable.scan(scanRequest).items().stream().collect(Collectors.toList());
     }
 
-    public String addItem(TablesModel item) {
+    public String addTable(TablesModel item) {
         tablesTable.putItem(item);
         return GSON.toJson(item);
+    }
+
+    public TablesModel getTableByNumber(int number) {
+        Key key = Key.builder()
+                .partitionValue(number)
+                .build();
+        GetItemEnhancedRequest request = GetItemEnhancedRequest.builder()
+                .key(key)
+                .build();
+        return tablesTable.getItem(request);
     }
 
     public TablesModel getItemById(int id) {

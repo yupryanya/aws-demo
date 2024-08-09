@@ -10,7 +10,6 @@ import com.task10.models.Reservation;
 import com.task10.models.ReservationsModel;
 import com.task10.service.TablesDbService;
 
-import java.util.Arrays;
 import java.util.Map;
 
 public class PostReservationsHandler extends AbstractHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
@@ -26,14 +25,14 @@ public class PostReservationsHandler extends AbstractHandler implements RequestH
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
         try {
             Reservation reservationData = gson.fromJson(request.getBody(), Reservation.class);
-            TablesModel tableItem = tablesDbService.getItemById(reservationData.getTableNumber());
-            if (tableItem == null) {
-            //    return createErrorResponse("Table not found");
+            TablesModel table = tablesDbService.getTableByNumber(reservationData.getTableNumber());
+            if (table == null) {
+                return createErrorResponse("Table not found");
             }
             if (reservationDbService.noTableOverlapping(reservationData)) {
                 ReservationsModel newReservation = new ReservationsModel();
                 newReservation.setReservation(reservationData);
-                reservationDbService.addItem(newReservation);
+                reservationDbService.addReservation(newReservation);
                 return createOkResponse(gson.toJson(Map.of("reservationId", newReservation.getId())));
             } else {
                 return createErrorResponse("Table is already booked");

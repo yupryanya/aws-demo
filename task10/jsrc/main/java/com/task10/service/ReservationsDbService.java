@@ -28,7 +28,7 @@ public class ReservationsDbService {
         this.reservationsTable = enhancedClient.table(RESERVATIONS_TABLE_NAME, TableSchema.fromBean(ReservationsModel.class));
     }
 
-    public List<Reservation> scanTable() {
+    public List<Reservation> getAllReservations() {
         ScanEnhancedRequest scanRequest = ScanEnhancedRequest.builder().build();
         List<ReservationsModel> items = reservationsTable.scan(scanRequest).items().stream().collect(Collectors.toList());
         return items.stream()
@@ -36,21 +36,19 @@ public class ReservationsDbService {
                 .collect(Collectors.toList());
     }
 
-    public void addItem(ReservationsModel item) {
+    public void addReservation(ReservationsModel item) {
         reservationsTable.putItem(item);
     }
 
     public boolean noTableOverlapping(Reservation newReservation) {
-        List<Reservation> reservations = scanTable();
-        for (Reservation reservation : reservations) {
-            if (reservation.getTableNumber() == newReservation.getTableNumber()) {
-                if (isTimeOverlap(newReservation.getSlotTimeStart(), newReservation.getSlotTimeEnd(),
-                        reservation.getSlotTimeStart(), reservation.getSlotTimeEnd())) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return getAllReservations().stream()
+                .filter(reservation -> reservation.getTableNumber() == newReservation.getTableNumber())
+                .noneMatch(reservation -> isTimeOverlap(
+                        newReservation.getSlotTimeStart(),
+                        newReservation.getSlotTimeEnd(),
+                        reservation.getSlotTimeStart(),
+                        reservation.getSlotTimeEnd())
+                );
     }
 
     private boolean isTimeOverlap(String start1, String end1, String start2, String end2) {

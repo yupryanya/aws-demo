@@ -20,7 +20,7 @@ public class PostTablesHandler extends AbstractHandler implements RequestHandler
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
         try {
             TablesModel newTable = gson.fromJson(request.getBody(), TablesModel.class);
-            tablesDbService.addItem(newTable);
+            tablesDbService.addTable(newTable);
             return createOkResponse(gson.toJson(Map.of("id", newTable.getId())));
         } catch (Exception e) {
             return createErrorResponse(e.getMessage());
