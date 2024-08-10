@@ -16,14 +16,11 @@
     {
       "name": "reservations",
       "description": "Endpoints for managing reservations"
-    },
-    {
-      "name": "options"
     }
   ],
   "servers": [
     {
-      "url": "https://rwh5bemvsi.execute-api.eu-central-1.amazonaws.com/{basePath}",
+      "url": "https://od7l2mgdg9.execute-api.eu-central-1.amazonaws.com/{basePath}",
       "variables": {
         "basePath": {
           "default": "api"
@@ -35,6 +32,7 @@
     "/reservations": {
       "get": {
         "summary": "Get a list of all reservations",
+        "description": "Returns all reservations. Requires user authentication",
         "tags": [
           "reservations"
         ],
@@ -44,7 +42,7 @@
           }
         ],
         "x-amazon-apigateway-integration": {
-          "httpMethod": "GET",
+          "httpMethod": "POST",
           "uri": "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:196241772369:function:api_handler/invocations",
           "responses": {
             "default": {
@@ -104,6 +102,7 @@
       },
       "post": {
         "summary": "Create a new reservation",
+        "description": "Adds a new reservation to the system. Returns an id of created reservation. User authentication is required.",
         "tags": [
           "reservations"
         ],
@@ -178,62 +177,12 @@
             "description": "Internal server error"
           }
         }
-      },
-      "options": {
-        "tags": [
-          "options"
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Methods": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Headers": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Empty"
-                }
-              }
-            }
-          }
-        },
-        "x-amazon-apigateway-integration": {
-          "responses": {
-            "default": {
-              "statusCode": "200",
-              "responseParameters": {
-                "method.response.header.Access-Control-Allow-Methods": "'*'",
-                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-                "method.response.header.Access-Control-Allow-Origin": "'*'"
-              }
-            }
-          },
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
-          "passthroughBehavior": "when_no_match",
-          "type": "mock"
-        }
       }
     },
     "/tables": {
       "get": {
         "summary": "Get a list of all tables",
+        "description": "Returns a list of all added tables. Requires user authentication",
         "tags": [
           "tables"
         ],
@@ -243,7 +192,7 @@
           }
         ],
         "x-amazon-apigateway-integration": {
-          "httpMethod": "GET",
+          "httpMethod": "POST",
           "uri": "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:196241772369:function:api_handler/invocations",
           "responses": {
             "default": {
@@ -302,6 +251,7 @@
       },
       "post": {
         "summary": "Create a new table",
+        "description": "Creates a new table. The response includes the ID of the newly created table. Requires authentication",
         "tags": [
           "tables"
         ],
@@ -329,41 +279,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "integer",
-                    "description": "Unique identifier for the table",
-                    "example": 2
-                  },
-                  "number": {
-                    "type": "integer",
-                    "description": "Number of the table",
-                    "example": 11
-                  },
-                  "places": {
-                    "type": "integer",
-                    "description": "Amount of people to sit at the table",
-                    "example": 2
-                  },
-                  "isVip": {
-                    "type": "boolean",
-                    "description": "Is the table in the VIP hall",
-                    "example": true
-                  },
-                  "minOrder": {
-                    "type": "integer",
-                    "description": "Table deposit required to book it",
-                    "example": 200,
-                    "nullable": true
-                  }
-                },
-                "required": [
-                  "id",
-                  "number",
-                  "places",
-                  "isVip"
-                ]
+                "$ref": "#/components/schemas/Table"
               }
             }
           }
@@ -410,62 +326,12 @@
             "description": "Internal server error"
           }
         }
-      },
-      "options": {
-        "tags": [
-          "options"
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Methods": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Headers": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Empty"
-                }
-              }
-            }
-          }
-        },
-        "x-amazon-apigateway-integration": {
-          "responses": {
-            "default": {
-              "statusCode": "200",
-              "responseParameters": {
-                "method.response.header.Access-Control-Allow-Methods": "'*'",
-                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-                "method.response.header.Access-Control-Allow-Origin": "'*'"
-              }
-            }
-          },
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
-          "passthroughBehavior": "when_no_match",
-          "type": "mock"
-        }
       }
     },
     "/signin": {
       "post": {
         "summary": "User sign-in",
+        "description": "Provides credentials (email and password) are valid. The response contains an $access token.",
         "tags": [
           "authentication"
         ],
@@ -504,62 +370,12 @@
             "description": "Internal server error"
           }
         }
-      },
-      "options": {
-        "tags": [
-          "options"
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Methods": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Headers": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Empty"
-                }
-              }
-            }
-          }
-        },
-        "x-amazon-apigateway-integration": {
-          "responses": {
-            "default": {
-              "statusCode": "200",
-              "responseParameters": {
-                "method.response.header.Access-Control-Allow-Methods": "'*'",
-                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-                "method.response.header.Access-Control-Allow-Origin": "'*'"
-              }
-            }
-          },
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
-          "passthroughBehavior": "when_no_match",
-          "type": "mock"
-        }
       }
     },
     "/signup": {
       "post": {
         "summary": "User sign-up",
+        "description": "Registers a new user with the details provided in the request body. The response contains an $access token.",
         "tags": [
           "authentication"
         ],
@@ -598,62 +414,12 @@
             "description": "Internal server error"
           }
         }
-      },
-      "options": {
-        "tags": [
-          "options"
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Methods": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Headers": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Empty"
-                }
-              }
-            }
-          }
-        },
-        "x-amazon-apigateway-integration": {
-          "responses": {
-            "default": {
-              "statusCode": "200",
-              "responseParameters": {
-                "method.response.header.Access-Control-Allow-Methods": "'*'",
-                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-                "method.response.header.Access-Control-Allow-Origin": "'*'"
-              }
-            }
-          },
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
-          "passthroughBehavior": "when_no_match",
-          "type": "mock"
-        }
       }
     },
     "/tables/{tableId}": {
       "get": {
         "summary": "Get details of a specific table",
+        "description": "Returnes information about the table specified by {tableId}.",
         "tags": [
           "tables"
         ],
@@ -722,67 +488,6 @@
           "500": {
             "description": "Internal server error"
           }
-        }
-      },
-      "options": {
-        "tags": [
-          "options"
-        ],
-        "parameters": [
-          {
-            "name": "tableId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Methods": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Headers": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Empty"
-                }
-              }
-            }
-          }
-        },
-        "x-amazon-apigateway-integration": {
-          "responses": {
-            "default": {
-              "statusCode": "200",
-              "responseParameters": {
-                "method.response.header.Access-Control-Allow-Methods": "'*'",
-                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-                "method.response.header.Access-Control-Allow-Origin": "'*'"
-              }
-            }
-          },
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
-          "passthroughBehavior": "when_no_match",
-          "type": "mock"
         }
       }
     }
