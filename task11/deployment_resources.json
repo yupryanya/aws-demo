@@ -116,5 +116,79 @@
     "write_capacity": 1,
     "global_indexes": [],
     "autoscaling": []
-  }
+  },
+  "task10_api": {
+  "resource_type": "api_gateway",
+  "deploy_stage": "api",
+  "authorizers": {
+    "authorizer": {
+      "type": "COGNITO_USER_POOLS",
+      "identity_source": "method.request.header.Authorization",
+      "user_pools": [
+        "simple-booking-userpool"
+      ],
+      "ttl": 300
+    }
+  },
+  "resources": {
+    "/signup": {
+      "enable_cors": true,
+      "POST": {
+        "authorization_type": "NONE",
+        "integration_type": "lambda",
+        "lambda_name": "api_handler",
+        "enable_proxy": true
+      }
+    },
+    "/signin": {
+      "enable_cors": true,
+      "POST": {
+        "authorization_type": "NONE",
+        "integration_type": "lambda",
+        "lambda_name": "api_handler",
+        "enable_proxy": true
+      }
+    },
+    "/tables": {
+      "enable_cors": true,
+      "POST": {
+        "authorization_type": "authorizer",
+        "integration_type": "lambda",
+        "lambda_name": "api_handler",
+        "enable_proxy": true
+      },
+      "GET": {
+        "authorization_type": "authorizer",
+        "integration_type": "lambda",
+        "lambda_name": "api_handler",
+        "enable_proxy": true
+      }
+    },
+    "/reservations": {
+      "enable_cors": true,
+      "POST": {
+        "authorization_type": "authorizer",
+        "integration_type": "lambda",
+        "lambda_name": "api_handler",
+        "enable_proxy": true
+      },
+      "GET": {
+        "authorization_type": "authorizer",
+        "integration_type": "lambda",
+        "lambda_name": "api_handler",
+        "enable_proxy": true
+      }
+    },
+    "/tables/{tableId}": {
+      "enable_cors": true,
+      "GET": {
+        "authorization_type": "authorizer",
+        "integration_type": "lambda",
+        "lambda_name": "api_handler",
+        "enable_proxy": true
+      }
+    }
+  },
+  "minimum_compression_size": 0
+}
 }
